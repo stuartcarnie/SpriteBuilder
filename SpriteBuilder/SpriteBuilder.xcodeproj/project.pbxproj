@@ -1607,7 +1607,7 @@
 		9249983018B7E1F500DE9ADA /* SceneGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneGraph.h; sourceTree = "<group>"; };
 		9249983118B7E1F500DE9ADA /* SceneGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneGraph.m; sourceTree = "<group>"; };
 		924EE96119902D800029CCD1 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
-		92520731196238D000BFC071 /* SpriteBuilder Pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "SpriteBuilder Pro.xcconfig"; sourceTree = "<group>"; };
+		92520731196238D000BFC071 /* SpriteBuilder 1.3 Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "SpriteBuilder 1.3 Beta.xcconfig"; sourceTree = "<group>"; };
 		9252073319623E2F00BFC071 /* SpriteBuilder.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SpriteBuilder.xcconfig; sourceTree = "<group>"; };
 		9254805918D913C500236DED /* seq-locked-faint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seq-locked-faint.png"; sourceTree = "<group>"; };
 		9266EE12195A1578006CBE81 /* CCBPEffectContrast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBPEffectContrast.h; path = ccBuilder/CCBPEffectContrast.h; sourceTree = "<group>"; };
@@ -3461,7 +3461,7 @@
 			isa = PBXGroup;
 			children = (
 				9252073319623E2F00BFC071 /* SpriteBuilder.xcconfig */,
-				92520731196238D000BFC071 /* SpriteBuilder Pro.xcconfig */,
+				92520731196238D000BFC071 /* SpriteBuilder 1.3 Beta.xcconfig */,
 				E3D08A321524581100E55891 /* README.md */,
 				E3D59118150F50D1004180CA /* AUTHORS */,
 				E395DC7D1511FDF70075979E /* CHANGELOG */,
