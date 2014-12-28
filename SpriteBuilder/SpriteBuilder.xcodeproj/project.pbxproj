@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05336EF81A4E95CA00860AE9 /* CCBPProperties.plist in Resources */ = {isa = PBXBuildFile; fileRef = 05336EF71A4E95CA00860AE9 /* CCBPProperties.plist */; };
+		05336EFB1A4F361300860AE9 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 05336EF91A4F361300860AE9 /* Icon.png */; };
+		05336EFC1A4F361300860AE9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05336EFA1A4F361300860AE9 /* Icon@2x.png */; };
+		059110491A4E91F300A06A4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7789ABC2133AA82000CEFCC7 /* Cocoa.framework */; };
+		0591104A1A4E920400A06A4F /* CCBPClippingNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0591103C1A4E905300A06A4F /* CCBPClippingNode.m */; };
+		0591104B1A4E926F00A06A4F /* CCClippingNode.ccbPlugNode in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 059110411A4E90EA00A06A4F /* CCClippingNode.ccbPlugNode */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		05DFDD911A50640A00EE1F8D /* CCBReader_NodeReferenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DFDD901A50640A00EE1F8D /* CCBReader_NodeReferenceTest.m */; };
+		05DFDD951A5066D200EE1F8D /* ClipNodeTest.ccb in Resources */ = {isa = PBXBuildFile; fileRef = 05DFDD941A5066D200EE1F8D /* ClipNodeTest.ccb */; };
 		4D0C1E7618F4760800B028CA /* SnapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C1E7318F472D600B028CA /* SnapLayer.m */; };
 		4D0C1E7918F49A3700B028CA /* CCNode+PositionExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C1E7818F49A3700B028CA /* CCNode+PositionExtentions.m */; };
 		4DB7C95719083B9C00ECE19F /* NotificationNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB7C95419083ACF00ECE19F /* NotificationNames.m */; };
@@ -1354,6 +1362,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				0591104B1A4E926F00A06A4F /* CCClippingNode.ccbPlugNode in Copy PlugIns */,
 				83F3CA911A423A0D003D8659 /* CCLightNode.ccbPlugNode in Copy PlugIns */,
 				92B5885D19B679E500BAE4C1 /* CCEffectNode.ccbPlugNode in Copy PlugIns */,
 				DCFB065118E32C3900DF02A0 /* SKFile.ccbPlugNode in Copy PlugIns */,
@@ -1390,6 +1399,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		05336EF71A4E95CA00860AE9 /* CCBPProperties.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CCBPProperties.plist; path = CCClippingNode/CCBPProperties.plist; sourceTree = "<group>"; };
+		05336EF91A4F361300860AE9 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = CCClippingNode/Icon.png; sourceTree = "<group>"; };
+		05336EFA1A4F361300860AE9 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "CCClippingNode/Icon@2x.png"; sourceTree = "<group>"; };
+		0591103B1A4E905300A06A4F /* CCBPClippingNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCBPClippingNode.h; path = CCClippingNode/CCBPClippingNode.h; sourceTree = "<group>"; };
+		0591103C1A4E905300A06A4F /* CCBPClippingNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CCBPClippingNode.m; path = CCClippingNode/CCBPClippingNode.m; sourceTree = "<group>"; };
+		059110411A4E90EA00A06A4F /* CCClippingNode.ccbPlugNode */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CCClippingNode.ccbPlugNode; sourceTree = BUILT_PRODUCTS_DIR; };
+		059110441A4E90EA00A06A4F /* CCClippingNode-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CCClippingNode-Info.plist"; path = "CCClippingNode/CCClippingNode-Info.plist"; sourceTree = "<group>"; };
+		05DFDD901A50640A00EE1F8D /* CCBReader_NodeReferenceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBReader_NodeReferenceTest.m; sourceTree = "<group>"; };
+		05DFDD941A5066D200EE1F8D /* ClipNodeTest.ccb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ClipNodeTest.ccb; path = "SpriteBuilderTestProject.spritebuilder/SpriteBuilder Resources/ClipNodeTest.ccb"; sourceTree = "<group>"; };
 		4D0C1E7218F472D600B028CA /* SnapLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapLayer.h; sourceTree = "<group>"; };
 		4D0C1E7318F472D600B028CA /* SnapLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnapLayer.m; sourceTree = "<group>"; };
 		4D0C1E7718F49A3700B028CA /* CCNode+PositionExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+PositionExtentions.h"; sourceTree = "<group>"; };
@@ -2929,6 +2947,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0591103E1A4E90EA00A06A4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				059110491A4E91F300A06A4F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7789ABBB133AA82000CEFCC7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3211,6 +3237,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0591103A1A4E8F9E00A06A4F /* CCClippingNode */ = {
+			isa = PBXGroup;
+			children = (
+				0591104C1A4E93EF00A06A4F /* Supporting Files */,
+				0591103B1A4E905300A06A4F /* CCBPClippingNode.h */,
+				0591103C1A4E905300A06A4F /* CCBPClippingNode.m */,
+			);
+			name = CCClippingNode;
+			sourceTree = "<group>";
+		};
+		0591104C1A4E93EF00A06A4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				059110441A4E90EA00A06A4F /* CCClippingNode-Info.plist */,
+				05336EF71A4E95CA00860AE9 /* CCBPProperties.plist */,
+				05336EF91A4F361300860AE9 /* Icon.png */,
+				05336EFA1A4F361300860AE9 /* Icon@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		776041E01498F4A00078095D /* Document Readers & Writers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3848,6 +3895,7 @@
 				833A5C4A192B48CB001837B3 /* SpriteBuilder Tests.xctest */,
 				929D1BA31954D16C00B27340 /* CCEffectNode.ccbPlugNode */,
 				83F3CA701A423337003D8659 /* CCLightNode.ccbPlugNode */,
+				059110411A4E90EA00A06A4F /* CCClippingNode.ccbPlugNode */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4115,6 +4163,7 @@
 			isa = PBXGroup;
 			children = (
 				E525FA8328B2749A80A9BB95 /* CCAnimation_Tests.m */,
+				05DFDD901A50640A00EE1F8D /* CCBReader_NodeReferenceTest.m */,
 				920994BA19870EC40006F38D /* CCBReader_EffectsTest.m */,
 				E525F8A64BC1B591FE3A2C5D /* CCBReader_Tests.m */,
 				920994C519870F3D0006F38D /* Cocos2dTestHelpers.h */,
@@ -4495,6 +4544,7 @@
 				920994BE19870EF90006F38D /* cartoon_house.jpg */,
 				920994BF19870EF90006F38D /* ShinyBallColor.png */,
 				920994C019870EF90006F38D /* ShinyBallNormals.png */,
+				05DFDD941A5066D200EE1F8D /* ClipNodeTest.ccb */,
 				920994BD19870EF90006F38D /* EffectTest1.ccb */,
 				92F85F3B194F8A4A0076B343 /* AnimationTest5.ccb */,
 				92F85F36194F70CA0076B343 /* AnimationTest4.ccb */,
@@ -5276,6 +5326,7 @@
 				B7EE69FA1819EE0D00B983FE /* CCLayoutBox */,
 				83F3CA4A1A4231EE003D8659 /* CCLightNode */,
 				E3B7AEC714E3193500DFD402 /* CCNode */,
+				0591103A1A4E8F9E00A06A4F /* CCClippingNode */,
 				E35DBB8214F225D30070A6E4 /* CCNodeColor */,
 				E35DBB9A14F244BC0070A6E4 /* CCNodeGradient */,
 				E35DBC0B14F4D72B0070A6E4 /* CCParticleSystem */,
@@ -6111,6 +6162,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		059110401A4E90EA00A06A4F /* CCClippingNode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 059110451A4E90EA00A06A4F /* Build configuration list for PBXNativeTarget "CCClippingNode" */;
+			buildPhases = (
+				0591103D1A4E90EA00A06A4F /* Sources */,
+				0591103E1A4E90EA00A06A4F /* Frameworks */,
+				0591103F1A4E90EA00A06A4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CCClippingNode;
+			productName = CCClippingNode;
+			productReference = 059110411A4E90EA00A06A4F /* CCClippingNode.ccbPlugNode */;
+			productType = "com.apple.product-type.bundle";
+		};
 		7789ABBD133AA82000CEFCC7 /* SpriteBuilder */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7789ABDC133AA82000CEFCC7 /* Build configuration list for PBXNativeTarget "SpriteBuilder" */;
@@ -6698,6 +6766,9 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
+					059110401A4E90EA00A06A4F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					7789ABBD133AA82000CEFCC7 = {
 						DevelopmentTeam = U2K5E32W7G;
 						SystemCapabilities = {
@@ -6739,6 +6810,7 @@
 				B7C3532117F65547005697C1 /* CCSprite9Slice */,
 				929D1B971954D16C00B27340 /* CCEffectNode */,
 				83F3CA631A423337003D8659 /* CCLightNode */,
+				059110401A4E90EA00A06A4F /* CCClippingNode */,
 				E35DBB7F14F225D30070A6E4 /* CCNodeColor */,
 				E35DBB9714F244BB0070A6E4 /* CCNodeGradient */,
 				E35DBBCB14F2AA350070A6E4 /* CCLabelBMFont */,
@@ -6783,7 +6855,7 @@
 		};
 		836E2D5A19EE5BCC00CD5B66 /* cocos2dJava.jar */ = {
 			isa = PBXReferenceProxy;
-			fileType = compiled.java.jar;
+			fileType = archive.jar;
 			path = cocos2dJava.jar;
 			remoteRef = 836E2D5919EE5BCC00CD5B66 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -6798,6 +6870,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0591103F1A4E90EA00A06A4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05336EFB1A4F361300860AE9 /* Icon.png in Resources */,
+				05336EFC1A4F361300860AE9 /* Icon@2x.png in Resources */,
+				05336EF81A4E95CA00860AE9 /* CCBPProperties.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7789ABBC133AA82000CEFCC7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7271,6 +7353,7 @@
 				B7E6BB5719F868F000619A58 /* select-pt@2x.png in Resources */,
 				830B39B0197032F400218021 /* blank.wav in Resources */,
 				B7E6BB5919F868F000619A58 /* seq-scaleslide-bg@2x.png in Resources */,
+				05DFDD951A5066D200EE1F8D /* ClipNodeTest.ccb in Resources */,
 				B7E6BB4F19F868F000619A58 /* doc-particlesystem@2x.png in Resources */,
 				920994C119870EF90006F38D /* EffectTest1.ccb in Resources */,
 				92F85F37194F70CA0076B343 /* AnimationTest4.ccb in Resources */,
@@ -7626,6 +7709,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0591103D1A4E90EA00A06A4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0591104A1A4E920400A06A4F /* CCBPClippingNode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7789ABBA133AA82000CEFCC7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7977,6 +8068,7 @@
 				E525F2ABDE13060F0A7C718A /* PackageRenamer_Tests.m in Sources */,
 				920994C719870F3D0006F38D /* Cocos2dTestHelpers.m in Sources */,
 				E525F7D63B68B99ADD44F94C /* PackageCreator_Tests.m in Sources */,
+				05DFDD911A50640A00EE1F8D /* CCBReader_NodeReferenceTest.m in Sources */,
 				E525F46FC0F80AEC8AA43D48 /* PackageRemover_Tests.m in Sources */,
 				E525FA2BAA3D669C41F83FA2 /* PackageExporter_Tests.m in Sources */,
 				E525F7AC155C1C4502F6A34A /* PackageImporter_Tests.m in Sources */,
@@ -8628,6 +8720,108 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		059110461A4E90EA00A06A4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "CCClippingNode/CCClippingNode-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = ccbPlugNode;
+			};
+			name = Debug;
+		};
+		059110471A4E90EA00A06A4F /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "CCClippingNode/CCClippingNode-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = ccbPlugNode;
+			};
+			name = Testing;
+		};
+		059110481A4E90EA00A06A4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "CCClippingNode/CCClippingNode-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = ccbPlugNode;
+			};
+			name = Release;
+		};
 		7789ABDA133AA82000CEFCC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -12085,6 +12279,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		059110451A4E90EA00A06A4F /* Build configuration list for PBXNativeTarget "CCClippingNode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				059110461A4E90EA00A06A4F /* Debug */,
+				059110471A4E90EA00A06A4F /* Testing */,
+				059110481A4E90EA00A06A4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7789ABB8133AA82000CEFCC7 /* Build configuration list for PBXProject "SpriteBuilder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

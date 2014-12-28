@@ -53,6 +53,7 @@
 #import "GeometryUtil.h"
 #import "NSPasteboard+CCB.h"
 #import "InspectorController.h"
+#import "SBPasteboardTypes.h"
 
 #define kCCBSelectionOutset 3
 #define kCCBSinglePointSelectionRadius 23
@@ -986,17 +987,24 @@ static NSString * kZeroContentSizeImage = @"sel-round.png";
 
 -(void)updateDragging
 {
-	if(effectSpriteDragging)
-	{
-		NSArray * classTypes = @[NSStringFromClass([CCSprite class])];
-		
-		CCNode * node = [[CocosScene cocosScene] findObjectAtPoint:effectSpriteDraggingLocation ofTypes:classTypes];
-		if(node)
-		{
-			[self renderBorder:node];
-		}
-	}
-	
+    NSArray * classTypes = nil;
+    switch (draggingMode) {
+        case kCCBDragModeEffect:
+            classTypes = @[NSStringFromClass([CCSprite class])];
+            break;
+            
+        case kCCBDragModeNode:
+            classTypes = @[NSStringFromClass([CCNode class])];
+            break;
+            
+        default:
+            return;
+    }
+    
+    CCNode * node = [[CocosScene cocosScene] findObjectAtPoint:draggingLocation ofTypes:classTypes];
+    if (node) {
+        [self renderBorder:node];
+    }
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender pos:(CGPoint)pos
@@ -1011,14 +1019,19 @@ static NSString * kZeroContentSizeImage = @"sel-round.png";
     
     // Textures
 	
-	NSArray* pbSprites = [pb propertyListsForType:@"com.cocosbuilder.effectSprite"];
-
-	if(pbSprites.count > 0)
+	if([[pb propertyListsForType:PASTEBOARD_TYPE_EFFECTSPRITE] count] > 0)
 	{
-		effectSpriteDragging = YES;
-		effectSpriteDraggingLocation = pos;
+		draggingMode = kCCBDragModeEffect;
+		draggingLocation = pos;
 		return NSDragOperationGeneric;
 	}
+    
+    if([[pb propertyListsForType:PASTEBOARD_TYPE_NODE] count] > 0)
+    {
+        draggingMode = kCCBDragModeNode;
+        draggingLocation = pos;
+        return NSDragOperationGeneric;
+    }
 	
     return NSDragOperationGeneric;
 
@@ -1032,7 +1045,7 @@ static NSString * kZeroContentSizeImage = @"sel-round.png";
         return operation;
     }
 	
-	effectSpriteDraggingLocation = pos;
+	draggingLocation = pos;
     
     return NSDragOperationGeneric;
 }
@@ -1040,14 +1053,13 @@ static NSString * kZeroContentSizeImage = @"sel-round.png";
 - (void)draggingExited:(id <NSDraggingInfo>)sender pos:(CGPoint)pos
 {
     [appDelegate.physicsHandler draggingExited:sender pos:pos];
-	effectSpriteDragging = NO;
+	draggingMode = kCCBDragModeNone;
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender
 {
     [appDelegate.physicsHandler draggingEnded:sender];
-	effectSpriteDragging = NO;
-	
+    draggingMode = kCCBDragModeNone;
 }
 
 #pragma mark Handle mouse input

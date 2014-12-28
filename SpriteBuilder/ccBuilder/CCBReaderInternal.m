@@ -64,6 +64,7 @@ enum
 };
 
 __strong NSDictionary* renamedProperties = nil;
+__strong NSMutableArray* postDeserializationUUIDFixup = nil;
 
 @interface CCNode (Private)
 -(void)postDeserializationFixup;
@@ -406,10 +407,13 @@ __strong NSDictionary* renamedProperties = nil;
     else if ([type isEqualToString:@"NodeReference"])
     {
         NSUInteger uuid = [serializedValue unsignedIntegerValue];
-        
         if(uuid != 0x0)
         {
-            NSAssert(parentGraph != nil,@"You need a parent graph handed in for a NodeReference to work");
+            if (parentGraph == nil) {
+                NSArray *task = @[node, name, @(uuid)];
+                [postDeserializationUUIDFixup addObject:task];
+                return;
+            }
             
             CCNode * target = [CCBUtil findNodeWithUUID:parentGraph UUID:uuid];
             if(!target)
@@ -465,6 +469,65 @@ __strong NSDictionary* renamedProperties = nil;
 
 + (CCNode*) nodeGraphFromDictionary:(NSDictionary*) dict parentSize:(CGSize)parentSize withParentGraph:(CCNode*)parentGraph
 {
+    postDeserializationUUIDFixup = [NSMutableArray array];
+    @try {
+        CCNode *node = [CCBReaderInternal _nodeGraphFromDictionary:dict parentSize:parentSize withParentGraph:parentGraph];
+        [CCBReaderInternal _UUIDFixup:node];
+        
+        return node;
+    } @finally {
+        postDeserializationUUIDFixup = nil;
+    }
+}
+
++ (CCNode*) nodeGraphFromDocumentDictionary:(NSDictionary *)dict
+{
+    return [CCBReaderInternal nodeGraphFromDocumentDictionary:dict parentSize:CGSizeZero];
+}
+
++ (CCNode*) nodeGraphFromDocumentDictionary:(NSDictionary *)dict parentSize:(CGSize) parentSize
+{
+    return [CCBReaderInternal nodeGraphFromDocumentDictionary:dict parentSize:parentSize withParentGraph:nil];
+}
+
++ (CCNode*) nodeGraphFromDocumentDictionary:(NSDictionary *)dict parentSize:(CGSize) parentSize withParentGraph:(CCNode*)parentGraph
+{
+    if (!dict)
+    {
+        NSLog(@"WARNING! Trying to load invalid file type (dict is null)");
+        return NULL;
+    }
+    // Load file metadata
+    
+    NSString* fileType = [dict objectForKey:@"fileType"];
+    int fileVersion = [[dict objectForKey:@"fileVersion"] intValue];
+    
+    if (!fileType  || ![fileType isEqualToString:@"CocosBuilder"])
+    {
+        NSLog(@"WARNING! Trying to load invalid file type (%@)", fileType);
+    }
+    
+    NSDictionary* nodeGraph = [dict objectForKey:@"nodeGraph"];
+    
+    if (fileVersion <= 2)
+    {
+        // Use legacy reader
+        NSString* assetsPath = [NSString stringWithFormat:@"%@/", [[ResourceManager sharedManager] mainActiveDirectoryPath]];
+        
+        return [CCBReaderInternalV1 ccObjectFromDictionary:nodeGraph assetsDir:assetsPath owner:NULL];
+    }
+    else if (fileVersion > kCCBFileFormatVersion)
+    {
+        NSLog(@"WARNING! Trying to load file made with a newer version of CocosBuilder");
+        return NULL;
+    }
+    
+    return [CCBReaderInternal nodeGraphFromDictionary:nodeGraph parentSize:parentSize];
+}
+
++ (CCNode *) _nodeGraphFromDictionary:(NSDictionary*)dict
+                           parentSize:(CGSize)parentSize
+                      withParentGraph:(CCNode*)parentGraph {
     if (!renamedProperties)
     {
         renamedProperties = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CCBReaderInternalRenamedProps" ofType:@"plist"]];
@@ -575,12 +638,12 @@ __strong NSDictionary* renamedProperties = nil;
     CGSize contentSize = node.contentSize;
     for (int i = 0; i < [children count]; i++)
     {
-        CCNode* child = [CCBReaderInternal nodeGraphFromDictionary:[children objectAtIndex:i] parentSize:contentSize];
-		
-		if (child)
-		{
-			[node addChild:child z:i];
-		}
+        CCNode* child = [CCBReaderInternal _nodeGraphFromDictionary:[children objectAtIndex:i] parentSize:contentSize withParentGraph:nil];
+        
+        if (child)
+        {
+            [node addChild:child z:i];
+        }
     }
     
     // Physics
@@ -611,49 +674,19 @@ __strong NSDictionary* renamedProperties = nil;
     return node;
 }
 
-+ (CCNode*) nodeGraphFromDocumentDictionary:(NSDictionary *)dict
-{
-    return [CCBReaderInternal nodeGraphFromDocumentDictionary:dict parentSize:CGSizeZero];
-}
-
-+ (CCNode*) nodeGraphFromDocumentDictionary:(NSDictionary *)dict parentSize:(CGSize) parentSize
-{
-    return [CCBReaderInternal nodeGraphFromDocumentDictionary:dict parentSize:parentSize withParentGraph:nil];
-}
-
-+ (CCNode*) nodeGraphFromDocumentDictionary:(NSDictionary *)dict parentSize:(CGSize) parentSize withParentGraph:(CCNode*)parentGraph
-{
-    if (!dict)
-    {
-        NSLog(@"WARNING! Trying to load invalid file type (dict is null)");
-        return NULL;
-    }
-    // Load file metadata
-    
-    NSString* fileType = [dict objectForKey:@"fileType"];
-    int fileVersion = [[dict objectForKey:@"fileVersion"] intValue];
-    
-    if (!fileType  || ![fileType isEqualToString:@"CocosBuilder"])
-    {
-        NSLog(@"WARNING! Trying to load invalid file type (%@)", fileType);
-    }
-    
-    NSDictionary* nodeGraph = [dict objectForKey:@"nodeGraph"];
-    
-    if (fileVersion <= 2)
-    {
-        // Use legacy reader
-        NSString* assetsPath = [NSString stringWithFormat:@"%@/", [[ResourceManager sharedManager] mainActiveDirectoryPath]];
++ (void)_UUIDFixup:(CCNode *)graph {
+    for (NSArray *task in postDeserializationUUIDFixup) {
+        CCNode *node = task[0];
+        NSString *name = task[1];
+        NSUInteger uuid = [task[2] integerValue];
         
-        return [CCBReaderInternalV1 ccObjectFromDictionary:nodeGraph assetsDir:assetsPath owner:NULL];
+        CCNode * target = [CCBUtil findNodeWithUUID:graph UUID:uuid];
+        if(!target) {
+            continue;
+        }
+
+        [node setValue:target forKey:name];
     }
-    else if (fileVersion > kCCBFileFormatVersion)
-    {
-        NSLog(@"WARNING! Trying to load file made with a newer version of CocosBuilder");
-        return NULL;
-    }
-    
-    return [CCBReaderInternal nodeGraphFromDictionary:nodeGraph parentSize:parentSize];
 }
 
 

@@ -119,15 +119,52 @@
 
 @end
 
+NS_ENUM(NSInteger, kProps) {
+    kPropsDragType,
+};
+
+static NSDictionary *props;
+
 
 @implementation InspectorNodeReference
 
 @dynamic reference;
 
++ (void)initialize {
+    [super initialize];
+    
+    props = @{
+        @"dragType": @(kPropsDragType)
+    };
+}
+
+- (id)initWithSelection:(CCNode *)s andPropertyName:(NSString *)pn andDisplayName:(NSString *)dn andExtra:(NSString *)e {
+    self = [super initWithSelection:s andPropertyName:pn andDisplayName:dn andExtra:e];
+    if (!self) return NULL;
+    
+    NSArray *parts = [self.extra componentsSeparatedByString:@"|"];
+    for (NSInteger i=0; i<parts.count; i+=2) {
+        NSString *k = parts[i];
+        NSNumber *kv = [props objectForKey:k];
+        if (kv == nil) {
+            continue;
+        }
+
+        NSString *v = parts[i+1];
+        switch ([kv intValue]) {
+            case kPropsDragType:
+                self.dragType = [v integerValue];
+                break;
+        }
+    }
+    
+    return self;
+}
+
 -(void)awakeFromNib
 {
 	[super awakeFromNib];
-	self.dragType = DragTypeJoint;
+	//self.dragType = DragTypeJoint;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nodeDeleted:) name:SCENEGRAPH_NODE_DELETED object:nil];
 }
@@ -199,11 +236,17 @@
         NSPasteboardItem *pbItem = [NSPasteboardItem new];
 		
 
-		if(self.dragType == DragTypeJoint)
-            [pbItem setDataProvider:self forTypes:@[PASTEBOARD_TYPE_JOINTBODY]];
-		else
-            [pbItem setDataProvider:self forTypes:@[PASTEBOARD_TYPE_EFFECTSPRITE]];
-		
+        switch (self.dragType) {
+            case DragTypeJoint:
+                [pbItem setDataProvider:self forTypes:@[PASTEBOARD_TYPE_JOINTBODY]];
+                break;
+            case DragTypeEffectSprite:
+                [pbItem setDataProvider:self forTypes:@[PASTEBOARD_TYPE_EFFECTSPRITE]];
+                break;
+            case DragTypeNode:
+                [pbItem setDataProvider:self forTypes:@[PASTEBOARD_TYPE_NODE]];
+                break;
+        }
 
         //create a new NSDraggingItem with our pasteboard item.
         NSDraggingItem *dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pbItem];
@@ -249,31 +292,51 @@
 
 - (void)pasteboard:(NSPasteboard *)pasteboard item:(NSPasteboardItem *)item provideDataForType:(NSString *)type
 {
-	if(self.dragType == DragTypeJoint)
-	{
-		NSDictionary * pasteData = @{@"uuid":@(selection.UUID), @"bodyIndex":[propertyName isEqualToString:@"bodyA"] ? @(BodyOutletA) : @(BodyOutletB)};
-		
-		NSData *data = [NSPropertyListSerialization dataWithPropertyList:pasteData
-																  format:NSPropertyListBinaryFormat_v1_0
-																 options:0
-																   error:NULL];
-		
-		[pasteboard setData:data forType:@"com.cocosbuilder.jointBody"];
-	}
-	
-	if(self.dragType == DragTypeEffectSprite)
-	{
-		CCEffect<EffectProtocol> *effect = (CCEffect<EffectProtocol>*)selection;
-		
-		NSDictionary * pasteData = @{@"effect":@(effect.UUID),@"propertyName" : propertyName};
-		
-		NSData *data = [NSPropertyListSerialization dataWithPropertyList:pasteData
-																  format:NSPropertyListBinaryFormat_v1_0
-																 options:0
-																   error:NULL];
-		
-		[pasteboard setData:data forType:@"com.cocosbuilder.effectSprite"];
-	}
+    switch (self.dragType) {
+        case DragTypeJoint: {
+            NSDictionary * pasteData = @{@"uuid":@(selection.UUID), @"bodyIndex":[propertyName isEqualToString:@"bodyA"] ? @(BodyOutletA) : @(BodyOutletB)};
+            
+            NSData *data = [NSPropertyListSerialization dataWithPropertyList:pasteData
+                                                                      format:NSPropertyListBinaryFormat_v1_0
+                                                                     options:0
+                                                                       error:NULL];
+            
+            [pasteboard setData:data forType:PASTEBOARD_TYPE_JOINTBODY];
+            break;
+        }
+            
+        case DragTypeEffectSprite: {
+            CCEffect<EffectProtocol> *effect = (CCEffect<EffectProtocol>*)selection;
+            
+            NSDictionary * pasteData = @{@"effect":@(effect.UUID),@"propertyName" : propertyName};
+            
+            NSData *data = [NSPropertyListSerialization dataWithPropertyList:pasteData
+                                                                      format:NSPropertyListBinaryFormat_v1_0
+                                                                     options:0
+                                                                       error:NULL];
+            
+            [pasteboard setData:data forType:PASTEBOARD_TYPE_EFFECTSPRITE];
+            break;
+        }
+            
+        case DragTypeNode: {
+            CCClippingNode *clipping = (CCClippingNode *)selection;
+            
+            NSDictionary * pasteData = @{@"source":@(clipping.UUID), @"propertyName" : propertyName};
+            
+            NSData *data = [NSPropertyListSerialization dataWithPropertyList:pasteData
+                                                                      format:NSPropertyListBinaryFormat_v1_0
+                                                                     options:0
+                                                                       error:NULL];
+            
+            [pasteboard setData:data forType:PASTEBOARD_TYPE_NODE];
+
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
 
 -(NSString*)nodeName

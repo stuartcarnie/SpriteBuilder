@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>displayName</key>
+        <string>Clipping Node</string>
+        <key>ordering</key>
+        <integer>4000</integer>
+        <key>description</key>
+        <string>Draws all children, clipped by a specified node.</string>
+        <key>inheritsFrom</key>
+        <string>CCNode</string>
+        <key>canHaveChildren</key>
+        <true/>
+        <key>className</key>
+        <string>CCClippingNode</string>
+        <key>properties</key>
+        <array>
+            <dict>
+                <key>displayName</key>
+                <string>CCClippingNode</string>
+                <key>name</key>
+                <string>CCClippingNode</string>
+                <key>type</key>
+                <string>Separator</string>
+                <key>dontSetInEditor</key>
+                <true/>
+            </dict>
+            <dict>
+                <key>displayName</key>
+                <string>Stencil</string>
+                <key>type</key>
+                <string>NodeReference</string>
+                <key>name</key>
+                <string>stencil</string>
+                <key>extra</key>
+                <string>dragType|2</string>
+            </dict>
+            <dict>
+                <key>defaultSerialization</key>
+                <real>0.0</real>
+                <key>animatable</key>
+                <true/>
+                <key>default</key>
+                <real>0.0</real>
+                <key>displayName</key>
+                <string>Alpha Threshold</string>
+                <key>type</key>
+                <string>Float</string>
+                <key>name</key>
+                <string>alphaThreshold</string>
+            </dict>
+            <dict>
+                <key>default</key>
+                <false/>
+                <key>defaultSerialization</key>
+                <false/>
+                <key>displayName</key>
+                <string>Inverted</string>
+                <key>type</key>
+                <string>Check</string>
+                <key>name</key>
+                <string>inverted</string>
+            </dict>
+        </array>
+        <key>editorClassName</key>
+        <string>CCBPClippingNode</string>
+        <key>propertiesOverridden</key>
+        <array/>
+    </dict>
+</plist>

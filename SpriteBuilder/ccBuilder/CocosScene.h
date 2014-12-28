@@ -75,6 +75,12 @@ enum {
     kCCBCanvasColorGreen,
 };
 
+NS_ENUM(NSInteger, kCCBDragMode) {
+    kCCBDragModeNone,
+    kCCBDragModeEffect,
+    kCCBDragModeNode,
+};
+
 @interface CocosScene : CCNode
 {
     CCNodeColor* bgLayer;
@@ -141,8 +147,8 @@ enum {
 	
 	
 	//Dragging and Dropping
-	BOOL               effectSpriteDragging;
-    CGPoint            effectSpriteDraggingLocation;
+	enum kCCBDragMode  draggingMode;
+    CGPoint            draggingLocation;
 }
 
 @property (nonatomic) CCNode* rootNode;

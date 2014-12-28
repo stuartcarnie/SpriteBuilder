@@ -37,6 +37,7 @@
 #import "CCEffect.h"
 #import "SBPasteboardTypes.h"
 #import "InspectorController.h"
+#import "CCBUtil.h"
 
 @implementation CCBGLView
 
@@ -52,7 +53,8 @@
             PASTEBOARD_TYPE_CCB,
             PASTEBOARD_TYPE_PLUGINNODE,
             PASTEBOARD_TYPE_JOINTBODY,
-            PASTEBOARD_TYPE_EFFECTSPRITE]];
+            PASTEBOARD_TYPE_EFFECTSPRITE,
+            PASTEBOARD_TYPE_NODE]];
 }
 
 - (void)reshape
@@ -138,6 +140,11 @@
     }
 
     if (![self performDragForEffect:localDragPoint pasteboard:pasteboard])
+    {
+        return NO;
+    }
+    
+    if (![self performDragForNode:localDragPoint pasteboard:pasteboard])
     {
         return NO;
     }
@@ -228,6 +235,35 @@
         [_inspectorController refreshProperty:@"effects"];
 	}
 
+    return YES;
+}
+
+- (BOOL)performDragForNode:(NSPoint)point pasteboard:(NSPasteboard *)pasteboard
+{
+    NSArray* pbNodes = [pasteboard propertyListsForType:PASTEBOARD_TYPE_NODE];
+    CGPoint aPoint = ccp(point.x, point.y);
+    NSArray *classTypes = @[NSStringFromClass([CCNode class])];
+    CCNode *node = [[CocosScene cocosScene] findObjectAtPoint:aPoint ofTypes:classTypes];
+    if (!node) {
+        return NO;
+    }
+    
+    for (NSDictionary* dict in pbNodes)
+    {
+        NSUInteger UUID = [dict[@"source"] unsignedIntegerValue];
+        
+        CCNode *source = (CCNode *)[CCBUtil findNodeWithUUID:[SceneGraph instance].rootNode UUID:UUID];
+        if (!source)
+        {
+            NSLog(@"Failed to find source node instance in scene graph.");
+            return NO;
+        }
+        
+        NSString *propertyName = dict[@"propertyName"];
+        
+        [source setValue:node forKey:propertyName];
+    }
+    
     return YES;
 }
 
