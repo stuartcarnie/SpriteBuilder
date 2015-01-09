@@ -25,6 +25,7 @@
 #import "RulersLayer.h"
 #import "CCBGlobals.h"
 #import "CCTextureCache.h"
+#import "AppDelegate.h"
 
 static CGFloat const kCCBRulerWidth = 15.0;
 static NSString * const kRulerLabelsFontName = @"ruler-numbers.fnt";
@@ -95,9 +96,6 @@ static NSString * const kRulerLabelsFontName = @"ruler-numbers.fnt";
 	// Need to force it to update the rulers.
 	winSize = CGSizeZero;
 	[[CocosScene cocosScene] forceRedraw];
-
-    CCDirectorMac *dir = (CCDirectorMac *)[CCDirector sharedDirector];
-    viewScale = dir.contentScaleFactor / dir.deviceContentScaleFactor;
 }
 
 - (id) init
@@ -126,6 +124,8 @@ static NSString * const kRulerLabelsFontName = @"ruler-numbers.fnt";
     winSize = ws;
     stageOrigin = so;
     zoom = zm;
+    
+    CGFloat viewScale = [AppDelegate appDelegate].derivedViewScaleFactor;
     
     // Resize backrounds
     bgHorizontal.contentSize = CGSizeMake(winSize.width, kCCBRulerWidth / viewScale);
@@ -174,7 +174,7 @@ static NSString * const kRulerLabelsFontName = @"ruler-numbers.fnt";
 
                 CCLabelBMFont  *lbl = [CCLabelBMFont labelWithString:ch fntFile:kRulerLabelsFontName width:FLT_MAX alignment:CCTextAlignmentCenter];
                 lbl.anchorPoint = ccp(0,0);
-                lbl.position = ccp(2/viewScale, y + (8*(strLen - i - 1) - 1)/viewScale);
+                lbl.position = ccp(2/viewScale, y + (8*(strLen - i - 1) /* - 1 */)/viewScale);
             
                 [marksVertical addChild:lbl z:1];
             }
@@ -217,7 +217,7 @@ static NSString * const kRulerLabelsFontName = @"ruler-numbers.fnt";
 
             CCLabelBMFont  *lbl = [CCLabelBMFont labelWithString:str fntFile:kRulerLabelsFontName width:FLT_MAX alignment:CCTextAlignmentCenter];
             lbl.anchorPoint = ccp(0,0);
-            lbl.position = ccp(x+1/viewScale, -2/viewScale);
+            lbl.position = ccp(x+1/viewScale, 0/* -1/viewScale*/);
             [marksHorizontal addChild:lbl z:1];
         }
         x+=10;
